@@ -1,15 +1,22 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { GenericTableModule } from '@angular-generic-table/core';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { GenericTableModule } from "@angular-generic-table/core";
+import { HttpClientModule } from "@angular/common/http";
 
-import { AppComponent } from './app.component';
+import { AppComponent } from "./app.component";
+import { SharedService } from "./services/shared.service";
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule,  GenericTableModule,
-    HttpClientModule ],
-  declarations: [ AppComponent ],
-  bootstrap:    [ AppComponent ]
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    GenericTableModule,
+    HttpClientModule
+  ],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  providers: [SharedService]
 })
-export class AppModule { }
+export class AppModule {}

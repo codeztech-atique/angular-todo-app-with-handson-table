@@ -1,26 +1,103 @@
 <h2 class="mt-3">Inline editing</h2>
-<p>Table with simple inline editing. Edit cells using input field or select a value from a dropdown.</p>
-<div class="alert alert-info">Please note that examples below only persists changes in memory so the data will be reset when component is reinitialized e.g when route changes or page is refreshed.</div>
+<p>
+  Table with simple inline editing. Edit cells using input field or select a
+  value from a dropdown.
+</p>
+<div class="alert alert-info">
+  Please note that examples below only persists changes in memory so the data
+  will be reset when component is reinitialized e.g when route changes or page
+  is refreshed.
+</div>
 <div class="card mb-5">
-  <div class="card-header">Example</div>
-  <div class="card-body">
-    <button class="btn btn-sm btn-outline-primary mb-3" (click)="toggleInlineEdit()">{{inlineEditState ? 'Disable inline edit' : 'Enable inline edit'}}</button>
-    <ng-container *ngIf="myTable.hasEdits">
-      <button class="btn btn-sm btn-outline-primary mb-3" (click)="myTable.inlineEditCancel()">Discard changes<i class="fa fa-times ml-2"></i></button>
-      <button class="btn btn-sm btn-primary mb-3" (click)="myTable.inlineEditUpdate()">Save changes<i class="fa fa-save ml-2"></i></button>
-    </ng-container>
-    <div class="table-responsive">
-      <generic-table [gtClasses]="'table-sm'" #myTable [gtSettings]="configObject.settings" [gtFields]="configObject.fields" [gtData]="configObject.data" (gtEvent)="trigger($event)"></generic-table>
-    </div>
-    <div class="text-center">
-      <small><gt-table-info class="form-text text-muted mb-2" [genericTable]="myTable"></gt-table-info></small>
-      <gt-pagination [gtClasses]="'pagination-sm justify-content-center'" [genericTable]="myTable"></gt-pagination>
-    </div>
-    <div class="alert alert-info" *ngIf="updatedRow">
-      <div><strong>From:</strong> {{updatedRow?.oldValue | json}}</div>
-      <div><strong>To:</strong> {{updatedRow?.newValue | json}}</div>
-      <div><strong>Original:</strong> {{updatedRow?.originalValue | json}}</div>
-    </div>
+  <div class="row">
+    <div class="col-md-4 login-sec">
+      <!-- <h2 class="text-center">Parking Slot</h2> -->
+      <form class="login-form" [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="text-uppercase">Name *</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="name"
+            [(ngModel)]="userName"
+          />
+        </div>
+        <div class="form-group">
+          <label class="text-uppercase">Language *</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="language"
+            [(ngModel)]="userLanguage"
+          />
+        </div>
 
+        <!-- min="0"
+            oninput="validity.valid||(value='');" -->
+        <button
+          [disabled]="!todoForm.valid"
+          type="submit"
+          class="btn btn-login float-right"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+    <div class="col-md-8">
+      <div class="card mb-5">
+        <div class="card-header">Todo</div>
+        <div class="card-body">
+          <button
+            class="btn btn-sm btn-outline-primary mb-3"
+            (click)="toggleInlineEdit()"
+          >
+            {{inlineEditState ? 'Disable inline edit' : 'Enable inline edit'}}
+          </button>
+          <ng-container *ngIf="myTable.hasEdits">
+            <button
+              class="btn btn-sm btn-outline-primary mb-3"
+              (click)="myTable.inlineEditCancel()"
+            >
+              Discard changes<i class="fa fa-times ml-2"></i>
+            </button>
+            <button
+              class="btn btn-sm btn-primary mb-3"
+              (click)="myTable.inlineEditUpdate()"
+            >
+              Save changes<i class="fa fa-save ml-2"></i>
+            </button>
+          </ng-container>
+          <div class="table-responsive">
+            <generic-table
+              [gtClasses]="'table-sm'"
+              #myTable
+              [gtSettings]="configObject.settings"
+              [gtFields]="configObject.fields"
+              [gtData]="configObject.data"
+              (gtEvent)="trigger($event)"
+            ></generic-table>
+          </div>
+          <div class="text-center">
+            <small
+              ><gt-table-info
+                class="form-text text-muted mb-2"
+                [genericTable]="myTable"
+              ></gt-table-info
+            ></small>
+            <gt-pagination
+              [gtClasses]="'pagination-sm justify-content-center'"
+              [genericTable]="myTable"
+            ></gt-pagination>
+          </div>
+          <div class="alert alert-info" *ngIf="updatedRow">
+            <div><strong>From:</strong> {{updatedRow?.oldValue | json}}</div>
+            <div><strong>To:</strong> {{updatedRow?.newValue | json}}</div>
+            <div>
+              <strong>Original:</strong> {{updatedRow?.originalValue | json}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
