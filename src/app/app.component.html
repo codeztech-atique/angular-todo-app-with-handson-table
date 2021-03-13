@@ -50,17 +50,22 @@
           <div class="table-responsive">
             <table class="table table-bordered">
               <thead>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Mobile</th>
-                <th>Email</th>
+                <th>Trash</th>
               </thead>
               <tr *ngFor="let user of tableData">
+                <td *ngIf="user.id === editRowID"><input type="text" [(ngModel)]="user.id" disabled="$1"></td>
+                <td *ngIf="user.id !== editRowID" (click)="Edit(user.id)">{{user.id}}</td>
                 <td *ngIf="user.id === editRowID"><input type="text" [(ngModel)]="user.name"></td>
                 <td *ngIf="user.id !== editRowID" (click)="Edit(user.id)">{{user.name}}</td>
-                <td *ngIf="user.id === editRowID"><input type="text" [(ngModel)]="user.mobile"></td>
+                <td *ngIf="user.id === editRowID"><input type="text" [(ngModel)]="user.mobile">
+                </td>
                 <td *ngIf="user.id !== editRowID">{{user.mobile}}</td>
-                <td *ngIf="user.id === editRowID"><input type="text" [(ngModel)]="user.email"></td>
-                <td *ngIf="user.id !== editRowID">{{user.email}}</td>
+                <td *ngIf="user.id !== editRowID">
+                  <button type="button" class="btn btn-sm  btn-danger">Delete</button>
+                </td>
               </tr>
             </table>
           </div>
