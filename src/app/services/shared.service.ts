@@ -13,11 +13,11 @@ export class SharedService {
 
   constructor(private http: HttpClient) {}
 
-  public getParkingCapacity(data) {
-    return this.http.post(`${this.uri}/totalparkingslot`, data);
+  public getAllTodos() {
+    return this.http.get(`${this.uri}/todo/get-all`);
   }
 
-  public updateParkingCapacity(data) {
-    return this.http.post(`${this.uri}/totalparkingslot/calculate`, data);
+  public createTodos(data) {
+    return this.http.post(`${this.uri}/todo/create`, data);
   }
 }

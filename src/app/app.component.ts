@@ -16,9 +16,9 @@ import { HttpClient, HttpParams } from "@angular/common/http";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
+  private clickTimeout = null;
   userName: any;
   userMobile: any;
-  userEmail: any;
   tableData: any = [];
   showEditTable: boolean = false;
   editRowID: any = "";
@@ -33,7 +33,51 @@ export class AppComponent {
     private formBuilder: FormBuilder,
     private shared: SharedService
   ) {}
-  submitData() {}
+
+  public setClickTimeout(callback) {
+    // clear any existing timeout
+    clearTimeout(this.clickTimeout);
+    this.clickTimeout = setTimeout(() => {
+      this.clickTimeout = null;
+      callback();
+    }, 2000);
+  }
+
+  submitData() {
+    if (this.clickTimeout) {
+      this.setClickTimeout(() => {});
+    } else {
+      // if timeout doesn't exist, we know it's first click
+      // treat as single click until further notice
+      this.setClickTimeout(itemId => this.handleSingleClick());
+    }
+  }
+  public handleSingleClick() {
+    // 2 sec - deboucing time
+    console.log(this.userName, this.userMobile);
+    var dataSet = {
+      name: this.userName,
+      mobile: this.userMobile
+    };
+    this.shared.createTodos(dataSet).subscribe(
+      data => {
+        const res = JSON.parse(JSON.stringify(data));
+        console.log(res);
+
+        if (res.status === 200) {
+          var filterData = {};
+          var parseJson = res.data;
+          filterData["name"] = parseJson.name;
+          filterData["mobile"] = parseJson.mobile;
+          filterData["id"] = parseJson.id;
+          this.ngOnInit();
+        }
+      },
+      error => {
+        // this.output = JSON.stringify(error.error);
+      }
+    );
+  }
 
   ngOnInit() {
     this.tableData = [
