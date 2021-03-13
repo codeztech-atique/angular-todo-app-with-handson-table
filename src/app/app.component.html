@@ -37,7 +37,7 @@
         <button
           [disabled]="!todoForm.valid"
           type="submit"
-          class="btn btn-login float-right"
+          class="btn btn-login float-right" (click)="submitData()"
         >
           Submit
         </button>

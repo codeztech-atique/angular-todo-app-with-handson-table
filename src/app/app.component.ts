@@ -33,7 +33,7 @@ export class AppComponent {
     private formBuilder: FormBuilder,
     private shared: SharedService
   ) {}
-  onSubmit() {}
+  submitData() {}
 
   ngOnInit() {
     this.tableData = [
