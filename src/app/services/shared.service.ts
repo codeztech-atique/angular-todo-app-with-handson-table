@@ -20,4 +20,8 @@ export class SharedService {
   public createTodos(data) {
     return this.http.post(`${this.uri}/todo/create`, data);
   }
+
+  public deleteSingleTodos(id) {
+    return this.http.delete(`${this.uri}/` + id);
+  }
 }

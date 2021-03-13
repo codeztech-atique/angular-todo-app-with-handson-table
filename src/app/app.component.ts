@@ -85,6 +85,29 @@ export class AppComponent {
     );
   }
 
+  deleteSingleTodoItems(data) {
+    console.log(data);
+    if (confirm("Are you sure you want to delete this ?")) {
+      // Save it!
+      console.log(data + " delete items from database.");
+      this.shared.deleteSingleTodos(data).subscribe(
+        data => {
+          const res = JSON.parse(JSON.stringify(data));
+          if (res) {
+            console.log(res);
+            this.ngOnInit();
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else {
+      // Do nothing!
+      console.log("Thing was not saved to the database.");
+    }
+  }
+
   ngOnInit() {
     this.tableData = [];
     this.shared.getAllTodos().subscribe(
