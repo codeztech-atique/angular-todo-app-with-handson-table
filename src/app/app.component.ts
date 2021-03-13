@@ -131,5 +131,6 @@ export class AppComponent {
   }
   Edit(val) {
     this.editRowID = val;
+    console.log(this.editRowID);
   }
 }
