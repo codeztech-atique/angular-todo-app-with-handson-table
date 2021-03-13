@@ -63,8 +63,7 @@ export class AppComponent {
       data => {
         const res = JSON.parse(JSON.stringify(data));
         console.log(res);
-
-        if (res.status === 200) {
+        if (res) {
           var filterData = {};
           var parseJson = res.data;
           filterData["name"] = parseJson.name;
@@ -81,15 +80,16 @@ export class AppComponent {
         showMessage.style.cursor = "none";
         var showErMessage = <HTMLElement>document.getElementById("error");
         showErMessage.style.cursor = "block";
+        console.log(error);
       }
     );
   }
 
   ngOnInit() {
+    this.tableData = [];
     this.shared.getAllTodos().subscribe(
       data => {
         const res = JSON.parse(JSON.stringify(data));
-        console.log(res);
         if (res) {
           var parseJson = res.data;
           for (let i = 0; i < parseJson.length; i++) {
@@ -100,7 +100,6 @@ export class AppComponent {
             });
           }
         }
-        console.log(this.tableData);
       },
       error => {
         console.log(error);
