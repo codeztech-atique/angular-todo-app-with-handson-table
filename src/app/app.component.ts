@@ -130,14 +130,47 @@ export class AppComponent {
     );
   }
   Edit(val) {
-    console.log("Hello");
-    console.log(val);
-    // console.log(this.userName);
-    // console.log(this.userMobile);
     this.editRowID = val;
   }
 
   onKey(id, name, mobile) {
-    console.log(id, name, mobile);
+    if (this.clickTimeout) {
+      this.setClickTimeout(() => {});
+    } else {
+      // if timeout doesn't exist, we know it's first click
+      // treat as single click until further notice
+      this.setClickTimeout(itemId => this.updateSingleClick(id, name, mobile));
+    }
+  }
+  updateSingleClick(id, name, mobile) {
+    var resD = {
+      id: id,
+      name: name,
+      modile: mobile
+    };
+    console.log(resD);
+    this.shared.updateSingleTodos(resD).subscribe(
+      data => {
+        const res = JSON.parse(JSON.stringify(data));
+        if (res) {
+          alert(
+            "UserId:" + id + "\n" + "Name:" + name + " Successfully Updated !!!"
+          );
+          this.ngOnInit();
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public setUpdateTimeout(callback) {
+    // clear any existing timeout
+    clearTimeout(this.clickTimeout);
+    this.clickTimeout = setTimeout(() => {
+      this.clickTimeout = null;
+      callback();
+    }, 1000);
   }
 }
