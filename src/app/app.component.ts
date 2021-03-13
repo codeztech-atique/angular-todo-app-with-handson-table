@@ -17,6 +17,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 })
 export class AppComponent {
   private clickTimeout = null;
+  private updateTimeout = null;
   userName: any;
   userMobile: any;
   tableData: any = [];
@@ -135,18 +136,18 @@ export class AppComponent {
 
   onKey(id, name, mobile) {
     if (this.clickTimeout) {
-      this.setClickTimeout(() => {});
+      this.setUpdateTimeout(() => {});
     } else {
       // if timeout doesn't exist, we know it's first click
       // treat as single click until further notice
-      this.setClickTimeout(itemId => this.updateSingleClick(id, name, mobile));
+      this.setUpdateTimeout(itemId => this.updateSingleClick(id, name, mobile));
     }
   }
   updateSingleClick(id, name, mobile) {
     var resD = {
       id: id,
       name: name,
-      modile: mobile
+      mobile: mobile
     };
     console.log(resD);
     this.shared.updateSingleTodos(resD).subscribe(
@@ -167,10 +168,10 @@ export class AppComponent {
 
   public setUpdateTimeout(callback) {
     // clear any existing timeout
-    clearTimeout(this.clickTimeout);
-    this.clickTimeout = setTimeout(() => {
-      this.clickTimeout = null;
+    clearTimeout(this.updateTimeout);
+    this.updateTimeout = setTimeout(() => {
+      this.updateTimeout = null;
       callback();
-    }, 1000);
+    }, 2000);
   }
 }
