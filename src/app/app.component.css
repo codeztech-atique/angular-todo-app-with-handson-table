@@ -71,25 +71,11 @@ p {
   color: #fff;
   font-weight: 600;
 }
-/* .banner-text {
-  width: 70%;
-  position: absolute;
-  bottom: 40px;
-  padding-left: 20px;
+
+#success {
+  display: none;
 }
-.banner-text h2 {
-  color: #fff;
-  font-weight: 600;
+
+#error {
+  display: none;
 }
-.banner-text h2:after {
-  content: " ";
-  width: 100px;
-  height: 5px;
-  background: #fff;
-  display: block;
-  margin-top: 20px;
-  border-radius: 3px;
-}
-.banner-text p {
-  color: #fff;
-} */

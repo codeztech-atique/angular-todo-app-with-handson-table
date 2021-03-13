@@ -31,16 +31,21 @@
             [(ngModel)]="userMobile"
           />
         </div>
+        <div class="form-group" style="display:flex">
 
-        <!-- min="0"
-            oninput="validity.valid||(value='');" -->
-        <button
+          <button
           [disabled]="!todoForm.valid"
           type="submit"
           class="btn btn-login float-right" (click)="submitData()"
         >
           Submit
         </button>
+          <div id="success" style="color:green" style="color:green;margin-left: 8%;margin-top: 2%;">Success !!!</div>
+          <div id="error" style="color:green" style="color:red;margin-left: 8%;margin-top: 2%;">Error !!!</div>
+        </div>
+        <!-- min="0"
+            oninput="validity.valid||(value='');" -->
+
       </form>
     </div>
     <div class="col-md-8">
@@ -70,6 +75,7 @@
             </table>
           </div>
           <div class="text-center">
+
           </div>
           <div class="alert alert-info" *ngIf="updatedRow">
 

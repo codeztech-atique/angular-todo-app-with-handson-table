@@ -70,21 +70,42 @@ export class AppComponent {
           filterData["name"] = parseJson.name;
           filterData["mobile"] = parseJson.mobile;
           filterData["id"] = parseJson.id;
+          var showMessage = <HTMLElement>document.getElementById("success");
+          showMessage.style.cursor = "block";
+
           this.ngOnInit();
         }
       },
       error => {
-        // this.output = JSON.stringify(error.error);
+        var showMessage = <HTMLElement>document.getElementById("success");
+        showMessage.style.cursor = "none";
+        var showErMessage = <HTMLElement>document.getElementById("error");
+        showErMessage.style.cursor = "block";
       }
     );
   }
 
   ngOnInit() {
-    this.tableData = [
-      { id: 1, name: "Mahi", mobile: "456465", email: "mahi@gmail.com" },
-      { id: 2, name: "Alice", mobile: "458765", email: "Alice@gmail.com" },
-      { id: 3, name: "Bob", mobile: "456448", email: "Bob@gmail.com" }
-    ];
+    this.shared.getAllTodos().subscribe(
+      data => {
+        const res = JSON.parse(JSON.stringify(data));
+        console.log(res);
+        if (res) {
+          var parseJson = res.data;
+          for (let i = 0; i < parseJson.length; i++) {
+            this.tableData.push({
+              id: parseJson[i].id,
+              name: parseJson[i].name,
+              mobile: parseJson[i].mobile
+            });
+          }
+        }
+        console.log(this.tableData);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
   Edit(val) {
     this.editRowID = val;
