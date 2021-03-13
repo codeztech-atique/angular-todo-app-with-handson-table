@@ -130,7 +130,14 @@ export class AppComponent {
     );
   }
   Edit(val) {
+    console.log("Hello");
+    console.log(val);
+    // console.log(this.userName);
+    // console.log(this.userMobile);
     this.editRowID = val;
-    console.log(this.editRowID);
+  }
+
+  apiCall(id, name, mobile) {
+    console.log(id, name, mobile);
   }
 }

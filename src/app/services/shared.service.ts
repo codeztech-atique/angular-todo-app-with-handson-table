@@ -24,4 +24,8 @@ export class SharedService {
   public deleteSingleTodos(id) {
     return this.http.delete(`${this.uri}/` + id);
   }
+
+  public updateSingleTodos(data) {
+    return this.http.put(`${this.uri}/todo/update`, data);
+  }
 }
