@@ -17,12 +17,15 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 })
 export class AppComponent {
   userName: any;
-  userLanguage: any;
+  userMobile: any;
   userEmail: any;
+  tableData: any = [];
+  showEditTable: boolean = false;
+  editRowID: any = "";
 
   todoForm = this.formBuilder.group({
     name: new FormControl("", [Validators.required]),
-    language: new FormControl("", [Validators.required])
+    mobile: new FormControl("", [Validators.required])
   });
 
   constructor(
@@ -32,5 +35,14 @@ export class AppComponent {
   ) {}
   onSubmit() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.tableData = [
+      { id: 1, name: "Mahi", mobile: "456465", email: "mahi@gmail.com" },
+      { id: 2, name: "Alice", mobile: "458765", email: "Alice@gmail.com" },
+      { id: 3, name: "Bob", mobile: "456448", email: "Bob@gmail.com" }
+    ];
+  }
+  Edit(val) {
+    this.editRowID = val;
+  }
 }

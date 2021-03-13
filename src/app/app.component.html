@@ -23,12 +23,12 @@
           />
         </div>
         <div class="form-group">
-          <label class="text-uppercase">Language *</label>
+          <label class="text-uppercase">Mobile *</label>
           <input
-            type="text"
+            type="number"
             class="form-control"
-            formControlName="language"
-            [(ngModel)]="userLanguage"
+            formControlName="mobile"
+            [(ngModel)]="userMobile"
           />
         </div>
 
@@ -48,7 +48,21 @@
         <div class="card-header">Todo</div>
         <div class="card-body">
           <div class="table-responsive">
-
+            <table class="table table-bordered">
+              <thead>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Email</th>
+              </thead>
+              <tr *ngFor="let user of tableData">
+                <td *ngIf="user.id === editRowID"><input type="text" [(ngModel)]="user.name"></td>
+                <td *ngIf="user.id !== editRowID" (click)="Edit(user.id)">{{user.name}}</td>
+                <td *ngIf="user.id === editRowID"><input type="text" [(ngModel)]="user.mobile"></td>
+                <td *ngIf="user.id !== editRowID">{{user.mobile}}</td>
+                <td *ngIf="user.id === editRowID"><input type="text" [(ngModel)]="user.email"></td>
+                <td *ngIf="user.id !== editRowID">{{user.email}}</td>
+              </tr>
+            </table>
           </div>
           <div class="text-center">
           </div>
