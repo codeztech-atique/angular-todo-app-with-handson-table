@@ -137,7 +137,7 @@ export class AppComponent {
     this.editRowID = val;
   }
 
-  apiCall(id, name, mobile) {
+  onKey(id, name, mobile) {
     console.log(id, name, mobile);
   }
 }
